@@ -18,7 +18,7 @@ function _writevalue(io::IO, value, delim, quotechar, escapechar)
     print(io, value)
 end
 
-function _writevalue{T}(io::IO, value::DataValue{T}, delim, quotechar, escapechar)
+function _writevalue(io::IO, value::DataValue{T}, delim, quotechar, escapechar) where T
     if isnull(value)
         print(io, "NA")
     else
@@ -27,7 +27,7 @@ function _writevalue{T}(io::IO, value::DataValue{T}, delim, quotechar, escapecha
 end
 
 
-@generated function _writecsv{T}(io::IO, it, ::Type{T}, delim, quotechar, escapechar)
+@generated function _writecsv(io::IO, it, ::Type{T}, delim, quotechar, escapechar) where T
     col_names = fieldnames(T)
     n = length(col_names)
     push_exprs = Expr(:block)
